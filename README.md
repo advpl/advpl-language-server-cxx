@@ -4,19 +4,9 @@ C++ Implementation of the Language Server Protocol for ADVPL
 # Steps to build:
 
 This project depends on the following libraries:
-### [Boost](www.boost.org)
+### [Boost](http://www.boost.org/)
 
-To install configure boost visit:
- * [Windows](http://www.boost.org/doc/libs/1_66_0/more/getting_started/windows.html)
- * [Linux/Mac](http://www.boost.org/doc/libs/1_66_0/more/getting_started/unix-variants.html)
-
-### [Antlr](www.antlr.org)
- Download the latest version of runtime Complete ANTLR.
- Create a directory, for example:
- 
- > c:\antlr4
- 
-  and save .jar in this folder.
+### [Antlr](http://www.antlr.org)
 
 ### Install the latest version of [Cmake](https://cmake.org/download/)
 

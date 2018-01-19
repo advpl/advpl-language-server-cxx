@@ -16,7 +16,6 @@ int main()
 
 #include <iostream>
 #include <fcntl.h>
-#include <io.h>
 #include "antlr4-runtime.h"
 #include "AdvplLexer.h"
 #include "AdvplParser.h"
@@ -48,7 +47,7 @@ int main(int argc, const char * argv[]) {
 	JSONOutput Out(std::cout, std::cerr);
 	JSONRPCDispatcher Dispatcher(std::make_unique<Handler>(Out));	
 	AdvplLSPCallbacks Callbacks(server);
-	regiterCallbackHandlers(Dispatcher,Out,Callbacks);
+    registerCallbackHandlers(Dispatcher,Out,Callbacks);
 	server.run(std::cin,Out,Dispatcher);
  
 

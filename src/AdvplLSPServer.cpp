@@ -25,13 +25,13 @@ namespace advpl_ls {
 			if (starts_with(Line,"Content-Length: ")) {
 					Line = erase_head_copy(Line,16);
 					trim(Line);
-					ContentLength = boost::lexical_cast<long>(Line);
+					ContentLength = boost::lexical_cast<unsigned long long>(Line);
 					continue;
 			}
 			else 
 			{
 				trim(Line);   
-				if(!empty(Line))
+				if(! Line.empty())
 				{
 					continue;   // It's another header, ignore it.
 				}
