@@ -65,7 +65,7 @@ diff <my_cc_file> /tmp/my_cc_file.cc
 
 #### Running unit tests
 
-There are two ways to run TensorFlow unit tests.
+There are two ways to run AdvPL Language Server unit tests.
 
 1. Use Boost test framework before submitting.
 
