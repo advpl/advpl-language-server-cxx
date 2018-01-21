@@ -1,7 +1,7 @@
 #include "AdvplLSPCallbacks.hpp"
-namespace advpl_ls {    
-    void AdvplLSPCallbacks::onInitialize(std::string ID, JSONOutput &Out){
-        Out.writeMessage(
+namespace advpl_ls {
+void AdvplLSPCallbacks::onInitialize(std::string ID, JSONOutput &Out) {
+  Out.writeMessage(
       R"({"jsonrpc":"2.0","id":)" + ID +
       R"(,"result":{"capabilities":{
           "textDocumentSync": 1,
@@ -12,6 +12,6 @@ namespace advpl_ls {
           "completionProvider": {"resolveProvider": false, "triggerCharacters": [".",">",":"]},
           "definitionProvider": true
         }}})");
-    }
-
 }
+
+}  // namespace advpl_ls
