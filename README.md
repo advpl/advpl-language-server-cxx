@@ -1,22 +1,34 @@
 # advpl-language-server-cxx
 C++ Implementation of the Language Server Protocol for ADVPL
 
-# Steps to build:
+# Steps to build
+
+## Linux
+
+1. [(Ref)](https://duckduckgo.com/?q=build-essential) Install build-essential
+1. [(Ref)](https://cmake.org/cmake/help/v3.9/) Install CMake 3.9+
+1. [(Ref)](https://www.git-scm.com/docs/git-clone) Clone the repository
+1. [(Ref)](https://www.gnu.org/software/make/manual/make.html) Run make
+1. [(Ref)](http://www.boost.org/doc/libs/1_66_0/libs/test/doc/html/index.html) Run tests
+
+Example on a Debian system:
+
+```
+$ sudo apt-get install build-essential
+$ sudo apt-get install cmake
+$ git clone https://github.com/advpl/advpl-language-server-cxx
+$ cd advpl-language-server-cxx
+$ cmake .
+$ make
+$ make test
+```
+
+## Windows
 
 This project depends on the following libraries:
-### [Boost](www.boost.org)
+### [Boost](http://www.boost.org/)
 
-To install configure boost visit:
- * [Windows](http://www.boost.org/doc/libs/1_66_0/more/getting_started/windows.html)
- * [Linux/Mac](http://www.boost.org/doc/libs/1_66_0/more/getting_started/unix-variants.html)
-
-### [Antlr](www.antlr.org)
- Download the latest version of runtime Complete ANTLR.
- Create a directory, for example:
- 
- > c:\antlr4
- 
-  and save .jar in this folder.
+### [Antlr](http://www.antlr.org)
 
 ### Install the latest version of [Cmake](https://cmake.org/download/)
 

@@ -14,7 +14,7 @@ namespace advpl_ls {
 		while (input.good()) {
 			// A Debug Protocol message starts with a set of HTTP headers,
 			// delimited  by \r\n, and terminated by an empty line (\r\n).
-			unsigned long long ContentLength = 0;
+			long long ContentLength = 0;
 			while (input.good()) {
 			std::string Line;
 			std::getline(input, Line);		  
@@ -25,13 +25,13 @@ namespace advpl_ls {
 			if (starts_with(Line,"Content-Length: ")) {
 					Line = erase_head_copy(Line,16);
 					trim(Line);
-					ContentLength = boost::lexical_cast<long>(Line);
+					ContentLength = boost::lexical_cast<long long>(Line);
 					continue;
 			}
 			else 
 			{
 				trim(Line);   
-				if(!empty(Line))
+				if(! Line.empty())
 				{
 					continue;   // It's another header, ignore it.
 				}
@@ -44,7 +44,7 @@ namespace advpl_ls {
 			}
 			if (ContentLength > 0) {
 				// Now read the JSON.
-				std::vector<char> JSON(ContentLength);
+				std::vector<char> JSON((unsigned long long) ContentLength);
 				input.read(JSON.data(), ContentLength);
 				if (!input) {
 					/*Out.log("Input was aborted. Read only "
@@ -54,7 +54,7 @@ namespace advpl_ls {
 							+ ".\n");*/
 					break;
 				}
-				boost::string_ref JSONRef(JSON.data(), ContentLength);
+				boost::string_ref JSONRef(JSON.data(), (unsigned long long) ContentLength);
 				if (!Dispatcher.call(JSONRef))
 					Out.log("JSON dispatch failed!\n");
 
