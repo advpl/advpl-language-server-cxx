@@ -5,23 +5,23 @@
 #include <mutex>
 #include "Logger.hpp"
 namespace advpl_ls {
-    class JSONOutput : public Logger {
+class JSONOutput : public Logger {
 
-    public:
-        JSONOutput(std::ostream &Outs, std::ostream &Logs)
-            : Outs(Outs), Logs(Logs) {}
-      
-        /// Emit a JSONRPC message.
-        void writeMessage(const std::string &Message);
-      
-        /// Write to the logging stream.        
-        void log(const std::string Message) override;      
-    
-    private:
-        std::ostream &Outs;
-        std::ostream &Logs;
-    
-        std::mutex StreamMutex;
-    };
+ public:
+  JSONOutput(std::ostream &Outs, std::ostream &Logs)
+      : Outs(Outs), Logs(Logs) {}
+
+  /// Emit a JSONRPC message.
+  void writeMessage(const std::string &Message);
+
+  /// Write to the logging stream.
+  void log(const std::string Message) override;
+
+ private:
+  std::ostream &Outs;
+  std::ostream &Logs;
+
+  std::mutex StreamMutex;
+};
 }
 #endif

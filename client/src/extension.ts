@@ -9,11 +9,11 @@ import * as vscodelc from 'vscode-languageclient';
 export function activate(context: vscode.ExtensionContext) {
     //const lsPath = "../build/Debug/advpl-language-server-cxx.exe";
     const lsPath = "C:/Totvs/vscode/c_version/advpl-language-server-cxx/build/Debug/advpl-language-server-cxx.exe"
-    const lsArgs : string[] = [];
+    const lsArgs: string[] = [];
     const serverOptions: vscodelc.ServerOptions = { command: lsPath, args: lsArgs };
 
     const clientOptions: vscodelc.LanguageClientOptions = {
-        
+
         documentSelector: ['prw', 'prx']
         /*uriConverters: {
             // FIXME: by default the URI sent over the protocol will be percent encoded (see rfc3986#section-2.1)
@@ -25,11 +25,11 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     const advplClient = new vscodelc.LanguageClient('Advpl Language Server', serverOptions, clientOptions);
-    
-     console.log('Advpl Language Server is now active!');
-     const disposable = advplClient.start();
-     
-     advplClient.onReady().then(_ => {
+
+    console.log('Advpl Language Server is now active!');
+    const disposable = advplClient.start();
+
+    advplClient.onReady().then(_ => {
         try {
             let expected = {
                 capabilities: {
@@ -43,16 +43,16 @@ export function activate(context: vscode.ExtensionContext) {
             };
             //assert.deepEqual(client.initializeResult, expected);
             disposable.dispose();
-       
+
         } catch (e) {
             disposable.dispose();
-       
+
         }
     }, e => {
         disposable.dispose();
-       
+
     });
-    
+
     context.subscriptions.push(disposable);
 }
 

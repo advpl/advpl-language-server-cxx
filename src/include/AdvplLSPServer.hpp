@@ -13,10 +13,10 @@
 #include "JSONOutput.hpp"
 
 namespace advpl_ls {
-    class AdvplLSPServer {
+class AdvplLSPServer {
 
-        public:
-             void run (std::istream &input, JSONOutput &Out, JSONRPCDispatcher &Dispatcher);
-    };
+ public:
+  void run(std::istream &input, JSONOutput &Out, JSONRPCDispatcher &Dispatcher);
+};
 }
 #endif

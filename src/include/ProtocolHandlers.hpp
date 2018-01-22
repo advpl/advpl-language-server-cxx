@@ -5,15 +5,17 @@
 #include "JSONRPCDispatcher.hpp"
 #include <string>
 namespace advpl_ls {
-    class ProtocolCallbacks {
-    public:
-      virtual ~ProtocolCallbacks() = default;
-    
-      virtual void onInitialize(std::string ID, JSONOutput &Out) = 0;
-    };
 
-    void registerCallbackHandlers(JSONRPCDispatcher &Dispatcher, JSONOutput &Out,
-        ProtocolCallbacks &Callbacks);
+class ProtocolCallbacks {
+ public:
+  virtual ~ProtocolCallbacks() = default;
+
+  virtual void onInitialize(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) = 0;
+  virtual void onShutdown(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) = 0;
+};
+
+void registerCallbackHandlers(JSONRPCDispatcher &Dispatcher, JSONOutput &Out,
+                              ProtocolCallbacks &Callbacks);
 
 }
 #endif

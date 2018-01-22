@@ -15,70 +15,63 @@ namespace sinks = boost::log::sinks;
 namespace keywords = boost::log::keywords;
 namespace advpl_ls {
 
-  static std::string CreateFormat()
-        {
-            logging::add_common_attributes();
-            logging::register_simple_formatter_factory< boost::log::trivial::severity_level, char >("Severity");
-            return "[%TimeStamp%] [%ThreadID%] [%Severity%]: %Message%";
-        }
-        static void init_log()
-        {
-            logging::add_file_log
-            (
-                keywords::file_name = "log_%N.log",                                        
-                keywords::rotation_size = 10 * 1024 * 1024,
-                keywords::time_based_rotation = sinks::file::rotation_at_time_point(0, 0, 0),
-                    
+static std::string CreateFormat() {
+  logging::add_common_attributes();
+  logging::register_simple_formatter_factory<boost::log::trivial::severity_level, char>("Severity");
+  return "[%TimeStamp%] [%ThreadID%] [%Severity%]: %Message%";
+}
+static void init_log() {
+  logging::add_file_log
+      (
+          keywords::file_name = "log_%N.log",
+          keywords::rotation_size = 10 * 1024 * 1024,
+          keywords::time_based_rotation = sinks::file::rotation_at_time_point(0, 0, 0),
 
-                keywords::format = CreateFormat()
-            );
-      
-            
+          keywords::format = CreateFormat()
+      );
 
-        }
-        static void log_info(std::string msg)
-        {
-            using namespace logging::trivial;
-            src::severity_logger< severity_level > lg;
-            BOOST_LOG_SEV(lg, info) << msg;
-        
-        }
-        static void log_error(std::string msg)
-        {
-            using namespace logging::trivial;
-            src::severity_logger< severity_level > lg;
-            BOOST_LOG_SEV(lg, error) << msg;
-       
-        }
+}
+static void log_info(std::string msg) {
+  using namespace logging::trivial;
+  src::severity_logger<severity_level> lg;
+  BOOST_LOG_SEV(lg, info) << msg;
 
-  class Logger {
-  public:
-    virtual ~Logger() = default;
+}
+static void log_error(std::string msg) {
+  using namespace logging::trivial;
+  src::severity_logger<severity_level> lg;
+  BOOST_LOG_SEV(lg, error) << msg;
 
-    /// Implementations of this method must be thread-safe.
-    virtual void log(const std::string Message)=0;
-  };
+}
 
-  /// Logger implementation that ignores all messages.
-  class EmptyLogger : public Logger {
-  public:
-    static EmptyLogger &getInstance();
+class Logger {
+ public:
+  virtual ~Logger() = default;
 
-    void log(const std::string Message) override;
+  /// Implementations of this method must be thread-safe.
+  virtual void log(const std::string Message)=0;
+};
 
-  private:
-    EmptyLogger() = default;
-  };
-  
-  class FileLogger : public Logger {
-  public:
-    static FileLogger &getInstance();
+/// Logger implementation that ignores all messages.
+class EmptyLogger : public Logger {
+ public:
+  static EmptyLogger &getInstance();
 
-    void log(const std::string Message) override;
+  void log(const std::string Message) override;
 
-  private:
-    FileLogger() = default;
-  };
+ private:
+  EmptyLogger() = default;
+};
+
+class FileLogger : public Logger {
+ public:
+  static FileLogger &getInstance();
+
+  void log(const std::string Message) override;
+
+ private:
+  FileLogger() = default;
+};
 
 }
 
