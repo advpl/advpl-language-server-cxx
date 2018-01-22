@@ -15,11 +15,12 @@ C++ Implementation of the Language Server Protocol for ADVPL
    1. [(Ref)](https://www.gnu.org/software/make/manual/make.html) Run make
    1. [(Ref)](http://www.boost.org/doc/libs/1_66_0/libs/test/doc/html/index.html) Run tests
 
-   Example on a Debian system:
+   The following lines are an example installation on a Debian system without Java, LibBoost and base build libraries. Stretch release will install CMake 3.7 by default, that is below the required version. Check [issue #2](https://github.com/advpl/advpl-language-server-cxx/issues/2) to install 3.9+ on Debian 9.
 
    ```bash
    $ sudo apt-get install build-essential
    $ sudo apt-get install cmake
+   $ sudo apt-get install default-jdk libboost-all-dev pkg-config uuid-dev
    $ git clone https://github.com/advpl/advpl-language-server-cxx
    $ cd advpl-language-server-cxx
    $ cmake .
