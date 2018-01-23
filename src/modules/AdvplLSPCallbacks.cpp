@@ -1,7 +1,5 @@
 #include "AdvplLSPCallbacks.hpp"
 
-#define advpl_ls_default_header_response(i, c) "{\"jsonrpc\":\"2.0\",\"id\":"+i+",\"result\":{"+c+"}"
-
 namespace advpl_ls {
 
 /*
@@ -25,24 +23,28 @@ void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string
   std::string trace = pt.get<std::string>("params.trace");
 
   Out.writeMessage(
-      advpl_ls_default_header_response(
-          ID,
-          R"("capabilities": {
- "textDocumentSync": 1,
- "documentFormattingProvider": true,
- "documentRangeFormattingProvider": true,
- "documentOnTypeFormattingProvider": {
-  "firstTriggerCharacter":"}",
-  "moreTriggerCharacter":[]
- },
- "codeActionProvider": true,
- "completionProvider": {
-  "resolveProvider": false,
-  "triggerCharacters": [".",">",":"]
- },
- "definitionProvider": true
-})"
-      )
+      nlohmann::json({
+                         {"jsonrpc", "2.0"},
+                         {"id", ID},
+                         {"result", {
+                             {"capabilities", {
+                                 {"textDocumentSync", 1},
+                                 {"documentFormattingProvider", true},
+                                 {"documentRangeFormattingProvider", true},
+                                 {"documentOnTypeFormattingProvider", {
+                                     {"firstTriggerCharacter", "}"},
+                                     {"moreTriggerCharacter", nlohmann::json::array()}
+                                 }},
+                                 {"codeActionProvider", true},
+                                 {"completionProvider", {
+                                     {"resolveProvider", false},
+                                     {"triggerCharacters", nlohmann::json::array({".", ">", ":"})}
+                                 }}
+                             }},
+                             {"definitionProvider", true}
+                         }}
+
+                     })
   );
 }
 
@@ -62,10 +64,11 @@ void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string
  */
 void AdvplLSPCallbacks::onShutdown(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
   Out.writeMessage(
-      advpl_ls_default_header_response(
-          ID,
-          ""
-      )
+      nlohmann::json({
+                         {"jsonrpc", "2.0"},
+                         {"id", ID},
+                         {"result", nullptr}
+                     })
   );
 }
 

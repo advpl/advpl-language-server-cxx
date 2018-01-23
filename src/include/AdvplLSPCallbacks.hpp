@@ -2,6 +2,7 @@
 #define ADVPLLSPCALLBACKS_H
 #include "ProtocolHandlers.hpp"
 #include "AdvplLSPServer.hpp"
+#include "json.hpp"
 namespace advpl_ls {
 
 class AdvplLSPCallbacks : public ProtocolCallbacks {

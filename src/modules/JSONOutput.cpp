@@ -1,5 +1,6 @@
 #include "JSONOutput.hpp"
 namespace advpl_ls {
+
 void JSONOutput::writeMessage(const std::string &Message) {
   /*llvm::SmallString<128> Storage;
   StringRef M = Message.toStringRef(Storage);
@@ -11,8 +12,20 @@ void JSONOutput::writeMessage(const std::string &Message) {
 */
   // Emit message with header.
   // Outs << "Content-Length: " << M.size() << "\r\n\r\n" << M;
-  Outs << "Content-Length: " << Message.size() << "\r\n\r\n" << Message;
+  Outs << this->createJsonRpc(Message);
   Outs.flush();
+}
+
+void JSONOutput::writeMessage(const nlohmann::json &j) {
+  this->writeMessage(j.dump());
+}
+
+std::string JSONOutput::createJsonRpc(const std::string &Message) {
+  return "Content-Length: " + std::to_string(Message.size()) + "\r\n\r\n" + Message;
+}
+
+std::string JSONOutput::createJsonRpc(const nlohmann::json &j) {
+  return this->createJsonRpc(j.dump());
 }
 
 void JSONOutput::log(const std::string Message) {

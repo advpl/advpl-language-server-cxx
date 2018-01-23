@@ -4,6 +4,7 @@
 #include <iostream>
 #include <mutex>
 #include "Logger.hpp"
+#include "json.hpp"
 namespace advpl_ls {
 class JSONOutput : public Logger {
 
@@ -13,6 +14,10 @@ class JSONOutput : public Logger {
 
   /// Emit a JSONRPC message.
   void writeMessage(const std::string &Message);
+  void writeMessage(const nlohmann::json &j);
+
+  std::string createJsonRpc(const std::string &Message);
+  std::string createJsonRpc(const nlohmann::json &j);
 
   /// Write to the logging stream.
   void log(const std::string Message) override;
