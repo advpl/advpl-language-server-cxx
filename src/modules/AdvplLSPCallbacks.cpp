@@ -22,6 +22,8 @@ void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string
   //capabilities
   std::string trace = pt.get<std::string>("params.trace");
 
+  // TODO Finish implementation of initialize request
+
   Out.writeMessage(
       nlohmann::json({
                          {"jsonrpc", "2.0"},
@@ -63,6 +65,8 @@ void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string
  *
  */
 void AdvplLSPCallbacks::onShutdown(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
+  // TODO Finish implementation of shutdown request
+
   Out.writeMessage(
       nlohmann::json({
                          {"jsonrpc", "2.0"},
@@ -70,6 +74,40 @@ void AdvplLSPCallbacks::onShutdown(boost::property_tree::ptree pt, std::string I
                          {"result", nullptr}
                      })
   );
+}
+
+/*
+ * Initialized Notification
+ *
+ * method: ‘initialized’
+ * params: InitializedParams
+ *
+ * The initialized notification is sent from the client to the server after the client received the result of
+ * the initialize request but before the client is sending any other request or notification to the server.
+ * The server can use the initialized notification for example to dynamically register capabilities. The initialized
+ * notification may only be sent once.
+ *
+ * https://microsoft.github.io/language-server-protocol/specification#initialized
+ *
+ */
+void AdvplLSPCallbacks::onInitialized(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
+  // TODO Finish implementation of initialized notification
+}
+
+/*
+ * Exit Notification
+ *
+ * method: ‘exit’
+ * params: void
+ *
+ * A notification to ask the server to exit its process. The server should exit with success code 0 if the shutdown
+ * request has been received before; otherwise with error code 1.
+ *
+ * https://microsoft.github.io/language-server-protocol/specification#exit
+ *
+ */
+void AdvplLSPCallbacks::onExit(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
+  // TODO Finish implementation of exit notification
 }
 
 }

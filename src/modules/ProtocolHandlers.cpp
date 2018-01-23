@@ -26,15 +26,41 @@ struct ShutdownHandler : Handler {
   ProtocolCallbacks &Callbacks;
 };
 
+struct InitializedHandler : Handler {
+  InitializedHandler(JSONOutput &Output, ProtocolCallbacks &Callbacks)
+      : Handler(Output), Callbacks(Callbacks) {}
+  void handleMethod(boost::property_tree::ptree pt,
+                    std::string ID) override {
+    Callbacks.onInitialized(pt, ID, Output);
+  }
+
+ private:
+  ProtocolCallbacks &Callbacks;
+};
+
+struct ExitHandler : Handler {
+  ExitHandler(JSONOutput &Output, ProtocolCallbacks &Callbacks)
+      : Handler(Output), Callbacks(Callbacks) {}
+  void handleMethod(boost::property_tree::ptree pt,
+                    std::string ID) override {
+    Callbacks.onExit(pt, ID, Output);
+  }
+
+ private:
+  ProtocolCallbacks &Callbacks;
+};
+
 void registerCallbackHandlers(JSONRPCDispatcher &Dispatcher, JSONOutput &Out,
                               ProtocolCallbacks &Callbacks) {
   Dispatcher.registerHandler(
       "initialize", std::make_unique<InitializeHandler>(Out, Callbacks));
   Dispatcher.registerHandler(
       "shutdown", std::make_unique<ShutdownHandler>(Out, Callbacks));
+  Dispatcher.registerHandler(
+      "initialized", std::make_unique<InitializedHandler>(Out, Callbacks));
+  Dispatcher.registerHandler(
+      "exit", std::make_unique<ExitHandler>(Out, Callbacks));
 
-  // TODO initialized https://microsoft.github.io/language-server-protocol/specification#initialized
-  // TODO exit https://microsoft.github.io/language-server-protocol/specification#exit
   // TODO $/cancelRequest https://microsoft.github.io/language-server-protocol/specification#cancelRequest
 }
 

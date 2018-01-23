@@ -119,4 +119,22 @@ BOOST_AUTO_TEST_CASE(la) {
                                       {"params", nullptr}
                                   }), stdout, stderr);
   BOOST_CHECK_EQUAL(stderr.empty(), true);
+
+  // Method initialized
+  callbackFromJson(nlohmann::json({
+                                      {"jsonrpc", "2.0"},
+                                      {"id", 1},
+                                      {"method", "initialized"},
+                                      {"params", nullptr}
+                                  }), stdout, stderr);
+  BOOST_CHECK_EQUAL(stderr.empty(), true);
+
+  // Method exit
+  callbackFromJson(nlohmann::json({
+                                      {"jsonrpc", "2.0"},
+                                      {"id", 1},
+                                      {"method", "exit"},
+                                      {"params", nullptr}
+                                  }), stdout, stderr);
+  BOOST_CHECK_EQUAL(stderr.empty(), true);
 }

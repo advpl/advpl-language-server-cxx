@@ -12,6 +12,8 @@ class ProtocolCallbacks {
 
   virtual void onInitialize(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) = 0;
   virtual void onShutdown(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) = 0;
+  virtual void onInitialized(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) = 0;
+  virtual void onExit(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) = 0;
 };
 
 void registerCallbackHandlers(JSONRPCDispatcher &Dispatcher, JSONOutput &Out,
