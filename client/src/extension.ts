@@ -8,6 +8,7 @@ import * as vscodelc from 'vscode-languageclient';
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
     //const lsPath = "../build/Debug/advpl-language-server-cxx.exe";
+    //const lsPath = "/home/vlopes/dev/github/advpl-language-server-cxx/cmake-build-debug/src/advpl_language_server_cxx_bin"
     const lsPath = "C:/Totvs/vscode/c_version/advpl-language-server-cxx/build/Debug/advpl-language-server-cxx.exe"
     const lsArgs: string[] = [];
     const serverOptions: vscodelc.ServerOptions = { command: lsPath, args: lsArgs };

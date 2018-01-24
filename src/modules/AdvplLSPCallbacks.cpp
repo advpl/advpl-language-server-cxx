@@ -91,6 +91,7 @@ void AdvplLSPCallbacks::onShutdown(boost::property_tree::ptree pt, std::string I
  *
  */
 void AdvplLSPCallbacks::onInitialized(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
+  Out.showInfoMessage("AdvPL Language Server initialized"); // TODO Localization
   // TODO Finish implementation of initialized notification
 }
 

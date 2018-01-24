@@ -22,6 +22,13 @@ class JSONOutput : public Logger {
   /// Write to the logging stream.
   void log(const std::string Message) override;
 
+  /// Show message method
+  void showMessage(int status, const std::string &Message);
+  void showErrorMessage(const std::string &Message);
+  void showWarningMessage(const std::string &Message);
+  void showInfoMessage(const std::string &Message);
+  void showLogMessage(const std::string &Message);
+
  private:
   std::ostream &Outs;
   std::ostream &Logs;
