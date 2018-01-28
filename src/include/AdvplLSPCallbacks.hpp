@@ -14,6 +14,8 @@ class AdvplLSPCallbacks : public ProtocolCallbacks {
   void onInitialized(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) override;
   void onExit(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) override;
 
+  void onHover(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) override;
+
  private:
   AdvplLSPServer &LangServer;
 };

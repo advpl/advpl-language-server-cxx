@@ -4,6 +4,11 @@
     "description": "Extensao de suporte ao desenvolvimento em advpl",
     "version": "0.0.1",
     "publisher": "killerall",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/advpl/advpl-language-server-cxx"
+    },
+    "license": "MIT",
     "engines": {
         "vscode": "^1.19.0"
     },
@@ -15,12 +20,27 @@
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [
-            {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+        "configuration": {
+            "type": "object",
+            "title": "Client configuration",
+            "properties": {
+                "advpl-ls.trace.server": {
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Traces the communication between VSCode and the AdvPL Language Server"
+                },
+                "advpl-ls.bin": {
+                    "type": "string",
+                    "default": "./bin/advpl-language-server-cxx",
+                    "description": "Location of the AdvPL Language Server binary file"
+                }
             }
-        ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
@@ -34,9 +54,11 @@
         "vscode-languageserver": "^3.3.0"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
+        "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "eslint": "^4.16.0",
+        "tslint": "^5.9.1",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
     }
 }

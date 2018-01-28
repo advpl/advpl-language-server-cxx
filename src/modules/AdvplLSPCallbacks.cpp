@@ -66,6 +66,7 @@ void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string
  */
 void AdvplLSPCallbacks::onShutdown(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
   // TODO Finish implementation of shutdown request
+  Out.showInfoMessage("AdvPL Language Server shutdown"); // TODO Localization
 
   Out.writeMessage(
       nlohmann::json({
@@ -92,7 +93,6 @@ void AdvplLSPCallbacks::onShutdown(boost::property_tree::ptree pt, std::string I
  */
 void AdvplLSPCallbacks::onInitialized(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
   Out.showInfoMessage("AdvPL Language Server initialized"); // TODO Localization
-  // TODO Finish implementation of initialized notification
 }
 
 /*
@@ -109,6 +109,24 @@ void AdvplLSPCallbacks::onInitialized(boost::property_tree::ptree pt, std::strin
  */
 void AdvplLSPCallbacks::onExit(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
   // TODO Finish implementation of exit notification
+  Out.showInfoMessage("AdvPL Language Server exit"); // TODO Localization
+}
+
+/*
+ * Hover Request
+ *
+ * method: ‘textDocument/hover’
+ * params: TextDocumentPositionParams
+ *
+ * The hover request is sent from the client to the server to request hover information at a given text document
+ * position.
+ *
+ * https://microsoft.github.io/language-server-protocol/specification#textDocument_hover
+ *
+ */
+void AdvplLSPCallbacks::onHover(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
+  std::string documentUri = pt.get<std::string>("params.textDocument.DocumentUri");
+  // TODO Finish implementation of hover notification
 }
 
 }

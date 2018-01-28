@@ -50,6 +50,18 @@ struct ExitHandler : Handler {
   ProtocolCallbacks &Callbacks;
 };
 
+struct HoverHandler : Handler {
+  HoverHandler(JSONOutput &Output, ProtocolCallbacks &Callbacks)
+      : Handler(Output), Callbacks(Callbacks) {}
+  void handleMethod(boost::property_tree::ptree pt,
+                    std::string ID) override {
+    Callbacks.onHover(pt, ID, Output);
+  }
+
+ private:
+  ProtocolCallbacks &Callbacks;
+};
+
 void registerCallbackHandlers(JSONRPCDispatcher &Dispatcher, JSONOutput &Out,
                               ProtocolCallbacks &Callbacks) {
   Dispatcher.registerHandler(
@@ -60,8 +72,15 @@ void registerCallbackHandlers(JSONRPCDispatcher &Dispatcher, JSONOutput &Out,
       "initialized", std::make_unique<InitializedHandler>(Out, Callbacks));
   Dispatcher.registerHandler(
       "exit", std::make_unique<ExitHandler>(Out, Callbacks));
+  Dispatcher.registerHandler(
+      "textDocument/hover", std::make_unique<HoverHandler>(Out, Callbacks));
 
   // TODO $/cancelRequest https://microsoft.github.io/language-server-protocol/specification#cancelRequest
+  // TODO window/showMessageRequest’ https://microsoft.github.io/language-server-protocol/specification#window_showMessageRequest
+  // TODO window/logMessage https://microsoft.github.io/language-server-protocol/specification#window_logMessage
+  // TODO telemetry/event https://microsoft.github.io/language-server-protocol/specification#telemetry_e
+  // TODO client/registerCapability https://microsoft.github.io/language-server-protocol/specification#client_registerCapability
+  // TODO client/unregisterCapability https://microsoft.github.io/language-server-protocol/specification#client_unregisterCapability
 }
 
 }
