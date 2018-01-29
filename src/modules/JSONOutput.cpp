@@ -63,4 +63,31 @@ void JSONOutput::showWarningMessage(const std::string &Message) { this->showMess
 void JSONOutput::showInfoMessage(const std::string &Message) { this->showMessage(3, Message); }
 void JSONOutput::showLogMessage(const std::string &Message) { this->showMessage(4, Message); }
 
+/*
+ * LogMessage Notification
+ *
+ * method: ‘window/logMessage’
+ * params: LogMessageParams
+ *
+ * The log message notification is sent from the server to the client to ask the client to log a particular message.
+ *
+ * https://microsoft.github.io/language-server-protocol/specification#window_logMessage
+ *
+ */
+void JSONOutput::logMessage(int status, const std::string &Message) {
+  this->writeMessage(
+      nlohmann::json({
+                         {"jsonrpc", "2.0"},
+                         {"method", "window/logMessage"},
+                         {"params", {
+                             {"type", status},
+                             {"message", Message}
+                         }}
+                     })
+  );
+}
+void JSONOutput::logErrorMessage(const std::string &Message) { this->logMessage(1, Message); }
+void JSONOutput::logWarningMessage(const std::string &Message) { this->logMessage(2, Message); }
+void JSONOutput::logInfoMessage(const std::string &Message) { this->logMessage(3, Message); }
+
 }  // namespace advpl_ls

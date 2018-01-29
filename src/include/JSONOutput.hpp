@@ -29,6 +29,12 @@ class JSONOutput : public Logger {
   void showInfoMessage(const std::string &Message);
   void showLogMessage(const std::string &Message);
 
+  /// Log message method
+  void logMessage(int status, const std::string &Message);
+  void logErrorMessage(const std::string &Message);
+  void logWarningMessage(const std::string &Message);
+  void logInfoMessage(const std::string &Message);
+
  private:
   std::ostream &Outs;
   std::ostream &Logs;

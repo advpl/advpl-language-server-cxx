@@ -8,21 +8,11 @@ import * as vscodelc from 'vscode-languageclient';
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
     const lsId: string = 'advpl-ls';
-    const lsPath: string = vscode.workspace.getConfiguration(lsId).get('bin');
-    const lsArgs: string[] = [];
-    const serverOptions: vscodelc.ServerOptions = { command: lsPath, args: lsArgs };
-
-    const clientOptions: vscodelc.LanguageClientOptions = {
-        documentSelector: ['prw', 'prx']
-        /*uriConverters: {
-            // FIXME: by default the URI sent over the protocol will be percent encoded (see rfc3986#section-2.1)
-            //        the "workaround" below disables temporarily the encoding until decoding
-            //        is implemented properly in clangd
-            code2Protocol: (uri: vscode.Uri) : string => uri.toString(true),
-            protocol2Code: (uri: string) : vscode.Uri => vscode.Uri.parse(uri)
-        }*/
+    const lsServerOptions: vscodelc.Executable = {
+        command: vscode.workspace.getConfiguration(lsId).get('bin')
     };
-
+    const serverOptions: vscodelc.ServerOptions = lsServerOptions;
+    const clientOptions: vscodelc.LanguageClientOptions = {};
     const advplClient = new vscodelc.LanguageClient(lsId, 'AdvPL Language Server', serverOptions, clientOptions);
     const disposable = advplClient.start();
 

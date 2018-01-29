@@ -15,15 +15,6 @@ namespace advpl_ls {
  *
  */
 void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
-  std::string processId = pt.get<std::string>("params.processId");
-  std::string rootPath = pt.get<std::string>("params.rootPath");
-  std::string rootUri = pt.get<std::string>("params.rootUri");
-  //initializationOptions
-  //capabilities
-  std::string trace = pt.get<std::string>("params.trace");
-
-  // TODO Finish implementation of initialize request
-
   Out.writeMessage(
       nlohmann::json({
                          {"jsonrpc", "2.0"},
@@ -31,19 +22,37 @@ void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string
                          {"result", {
                              {"capabilities", {
                                  {"textDocumentSync", 1},
-                                 {"documentFormattingProvider", true},
-                                 {"documentRangeFormattingProvider", true},
-                                 {"documentOnTypeFormattingProvider", {
-                                     {"firstTriggerCharacter", "}"},
-                                     {"moreTriggerCharacter", nlohmann::json::array()}
-                                 }},
-                                 {"codeActionProvider", true},
+                                 {"hoverProvider", true},
                                  {"completionProvider", {
                                      {"resolveProvider", false},
-                                     {"triggerCharacters", nlohmann::json::array({".", ">", ":"})}
+                                     {"triggerCharacters", nlohmann::json::array({})}
+                                 }},
+                                 {"signatureHelpProvider", {
+                                     {"triggerCharacters", nlohmann::json::array({})}
+                                 }},
+                                 {"definitionProvider", false},
+                                 {"referencesProvider", false},
+                                 {"documentHighlightProvider", false},
+                                 {"documentSymbolProvider", false},
+                                 {"workspaceSymbolProvider", false},
+                                 {"codeActionProvider", false},
+                                 {"codeLensProvider", {
+                                     {"resolveProvider", false}
+                                 }},
+                                 {"documentFormattingProvider", false},
+                                 {"documentRangeFormattingProvider", false},
+                                 {"documentOnTypeFormattingProvider", {
+                                     {"firstTriggerCharacter", ")"},
+                                     {"moreTriggerCharacter", nlohmann::json::array({})}
+                                 }},
+                                 {"renameProvider", false},
+                                 {"documentLinkProvider", {
+                                     {"resolveProvider", false}
+                                 }},
+                                 {"executeCommandProvider", {
+                                     {"commands", nlohmann::json::array({})}
                                  }}
-                             }},
-                             {"definitionProvider", true}
+                             }}
                          }}
 
                      })
@@ -65,8 +74,7 @@ void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string
  *
  */
 void AdvplLSPCallbacks::onShutdown(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
-  // TODO Finish implementation of shutdown request
-  Out.showInfoMessage("AdvPL Language Server shutdown"); // TODO Localization
+  Out.logInfoMessage("AdvPL Language Server shutdown"); // TODO Localization
 
   Out.writeMessage(
       nlohmann::json({
@@ -92,7 +100,7 @@ void AdvplLSPCallbacks::onShutdown(boost::property_tree::ptree pt, std::string I
  *
  */
 void AdvplLSPCallbacks::onInitialized(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
-  Out.showInfoMessage("AdvPL Language Server initialized"); // TODO Localization
+  Out.logInfoMessage("AdvPL Language Server initialized"); // TODO Localization
 }
 
 /*
@@ -109,7 +117,7 @@ void AdvplLSPCallbacks::onInitialized(boost::property_tree::ptree pt, std::strin
  */
 void AdvplLSPCallbacks::onExit(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
   // TODO Finish implementation of exit notification
-  Out.showInfoMessage("AdvPL Language Server exit"); // TODO Localization
+  Out.logInfoMessage("AdvPL Language Server exit"); // TODO Localization
 }
 
 /*
@@ -126,7 +134,34 @@ void AdvplLSPCallbacks::onExit(boost::property_tree::ptree pt, std::string ID, J
  */
 void AdvplLSPCallbacks::onHover(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
   std::string documentUri = pt.get<std::string>("params.textDocument.DocumentUri");
+  auto line = pt.get<unsigned int>("params.position.line");
+  auto character = pt.get<unsigned int>("params.position.character");
+
+  Out.showWarningMessage("Hover not implemented");
   // TODO Finish implementation of hover notification
+
+  Out.writeMessage(
+      nlohmann::json({
+                         {"jsonrpc", "2.0"},
+                         {"id", ID},
+                         {"result", {
+                             {"contents", {
+                                 {"kind", "markdown"},
+                                 {"value", "Test hover markdown text"}
+                             }},
+                             {"range", {
+                                 {"start", {
+                                     {"line", 0},
+                                     {"character", 1}
+                                 }},
+                                 {"end", {
+                                     {"line", 0},
+                                     {"character", 1}
+                                 }}
+                             }}
+                         }}
+                     })
+  );
 }
 
 }
