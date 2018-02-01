@@ -16,3 +16,4 @@ src/advpl_language_server_cxx_bin
 test/advpl_language_server_test
 **/*.a
 **/*.tokens
+**/*.cbp

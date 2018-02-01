@@ -24,7 +24,7 @@
             "type": "object",
             "title": "Client configuration",
             "properties": {
-                "advpl-ls.trace.server": {
+                "advplLs.trace.server": {
                     "type": "string",
                     "enum": [
                         "off",
@@ -34,7 +34,7 @@
                     "default": "off",
                     "description": "Traces the communication between VSCode and the AdvPL Language Server"
                 },
-                "advpl-ls.bin": {
+                "advplLs.bin": {
                     "type": "string",
                     "default": "./bin/advpl-language-server-cxx",
                     "description": "Location of the AdvPL Language Server binary file"

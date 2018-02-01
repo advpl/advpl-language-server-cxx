@@ -37,7 +37,7 @@ void AdvplLSPCallbacks::onInitialize(boost::property_tree::ptree pt, std::string
                                  {"workspaceSymbolProvider", false},
                                  {"codeActionProvider", false},
                                  {"codeLensProvider", {
-                                     {"resolveProvider", false}
+                                     {"resolveProvider", true}
                                  }},
                                  {"documentFormattingProvider", false},
                                  {"documentRangeFormattingProvider", false},
@@ -133,10 +133,6 @@ void AdvplLSPCallbacks::onExit(boost::property_tree::ptree pt, std::string ID, J
  *
  */
 void AdvplLSPCallbacks::onHover(boost::property_tree::ptree pt, std::string ID, JSONOutput &Out) {
-  std::string documentUri = pt.get<std::string>("params.textDocument.DocumentUri");
-  auto line = pt.get<unsigned int>("params.position.line");
-  auto character = pt.get<unsigned int>("params.position.character");
-
   Out.showWarningMessage("Hover not implemented");
   // TODO Finish implementation of hover notification
 
@@ -148,7 +144,7 @@ void AdvplLSPCallbacks::onHover(boost::property_tree::ptree pt, std::string ID, 
                              {"contents", {
                                  {"kind", "markdown"},
                                  {"value", "Test hover markdown text"}
-                             }},
+                             }}/*,
                              {"range", {
                                  {"start", {
                                      {"line", 0},
@@ -158,7 +154,7 @@ void AdvplLSPCallbacks::onHover(boost::property_tree::ptree pt, std::string ID, 
                                      {"line", 0},
                                      {"character", 1}
                                  }}
-                             }}
+                             }}*/
                          }}
                      })
   );
